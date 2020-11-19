@@ -1,0 +1,7 @@
+DOT_BASE_NAME=Janda.CTF.Telnet
+# Semicolon delimited solution names to be build
+DOT_BUILD_SOLUTIONS=Janda.CTF.Telnet
+# Semicolon delimited list of RIDs to be published e.g. win-x64;osx-x64;linux-x64
+DOT_PUBLISH_RUNTIMES=win-x64
+# Add publish arguments e.g. -c Release -p:PublishSingleFile=true -p:PublishTrimmed=true
+DOT_PUBLISH_ARGUMENTS=-c Release
