@@ -2,7 +2,7 @@
 
 namespace Janda.CTF
 {
-    public static class TelnetExtensions
+    public static class TelnetServiceExtensions
     {
         public static IServiceCollection AddTelnetService(this IServiceCollection services)
         {
