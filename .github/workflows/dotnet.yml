@@ -25,7 +25,7 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       run: |
-        dotnet nuget add source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json -p ${{ secrets.GITHUB_TOKEN }} -u ${{ github.repository_owner }} -n private-packages
+        dotnet nuget add source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json -p ${{ secrets.GITHUB_TOKEN }} -u ${{ github.repository_owner }} -n private-packages --store-password-in-clear-text
         dotnet restore
     - name: Build
       run: dotnet build --no-restore
