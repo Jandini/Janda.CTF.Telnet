@@ -4,14 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Janda.CTF</RootNamespace>
     <Authors>Matt Janda</Authors>
+    <RepositoryUrl>https://github.com/Jandini/Janda.CTF.Extensions</RepositoryUrl>    
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\bin</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\bin</OutputPath>
+  <PropertyGroup>
+    <OutputPath>..\..\bin\$(Configuration)</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,12 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="GitVersionTask" Version="5.3.3" />
-    <PackageReference Include="Janda.CTF" Version="0.1.0-alpha.0" />
-    <PackageReference Include="Janda.Dot.Nuget" Version="0.3.0">
+    <PackageReference Include="GitVersion.MsBuild" Version="5.6.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Janda.CTF" Version="0.1.0" />
   </ItemGroup>
 </Project>

@@ -4,24 +4,18 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Janda.CTF</RootNamespace>
     <Authors>Matt Janda</Authors>
+    <RepositoryUrl>https://github.com/Jandini/Janda.CTF.Telnet</RepositoryUrl>    
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\bin</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\bin</OutputPath>
+  <PropertyGroup>
+    <OutputPath>..\..\bin\$(Configuration)</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Janda.CTF.Extensions" Version="0.1.0-alpha.1" />
-    <PackageReference Include="Janda.Dot.Service" Version="0.3.0" />
-    <PackageReference Include="Janda.Dot.Nuget" Version="0.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Janda.Dot.Version" Version="0.3.0">
+    <PackageReference Include="Janda.CTF.Extensions" Version="0.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
+    <PackageReference Include="GitVersion.MsBuild" Version="5.6.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
