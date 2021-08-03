@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Janda.CTF</RootNamespace>
+    <Authors>Matt Janda</Authors>
+    <RepositoryUrl>https://github.com/Jandini/Janda.CTF.Extensions</RepositoryUrl>    
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputPath>..\..\bin\$(Configuration)</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TelnetChallenge.ch" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TelnetChallenge.ch" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild" Version="5.6.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Janda.CTF" Version="0.1.0" />
+  </ItemGroup>
+</Project>
