@@ -3,14 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Janda.CTF.Telnet", "Janda.CTF.Telnet\Janda.CTF.Telnet.csproj", "{75440074-7B8A-40B0-9B1C-DBCFBC8E9A09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Janda.CTF.Telnet", "Janda.CTF.Telnet\Janda.CTF.Telnet.csproj", "{75440074-7B8A-40B0-9B1C-DBCFBC8E9A09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Janda.CTF.Telnet.Template", "Janda.CTF.Telnet.Template\Janda.CTF.Telnet.Template.csproj", "{6DF54567-63EE-44EB-AEF6-2AC34DF8897B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Janda.CTF.Telnet.Template", "Janda.CTF.Telnet.Template\Janda.CTF.Telnet.Template.csproj", "{6DF54567-63EE-44EB-AEF6-2AC34DF8897B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Janda.CTF.Telnet.Tests", "Janda.CTF.Telnet.Tests\Janda.CTF.Telnet.Tests.csproj", "{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}"
 EndProject
 Global
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -44,5 +43,23 @@ Global
 		{6DF54567-63EE-44EB-AEF6-2AC34DF8897B}.Release|x64.Build.0 = Release|Any CPU
 		{6DF54567-63EE-44EB-AEF6-2AC34DF8897B}.Release|x86.ActiveCfg = Release|Any CPU
 		{6DF54567-63EE-44EB-AEF6-2AC34DF8897B}.Release|x86.Build.0 = Release|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Debug|x64.Build.0 = Debug|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Debug|x86.Build.0 = Debug|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Release|x64.ActiveCfg = Release|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Release|x64.Build.0 = Release|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Release|x86.ActiveCfg = Release|Any CPU
+		{A81AABD6-5DA5-4CA7-BFF7-72C32358381E}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED39D8B0-0C37-43B3-B6DA-E64A5AA08F3C}
 	EndGlobalSection
 EndGlobal

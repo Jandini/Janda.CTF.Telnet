@@ -19,32 +19,41 @@ namespace Janda.CTF
         private const int DEFAULT_TIMEOUT = 100;
         private const string EOL_SEPARATOR = "\n";
 
-            
+        public bool IsConnected => _tcpClient?.Connected ?? false;
+
         public TelnetService(ILogger<TelnetService> logger)
         {
             _logger = logger;
-            _timeout = DEFAULT_TIMEOUT;
+            _timeout = DEFAULT_TIMEOUT;            
+        }
+
+
+
+        private TelnetAddress GetTelnetAddress(MethodBase caller)
+        {
+            var attribute = caller.GetCustomAttribute<TelnetAttribute>();
+                
+            if (attribute is null) 
+                throw new TelnetException($"Telnet attribute is missing in {caller.DeclaringType}.");
+
+            _logger.LogInformation("Using telnet {@options}", new { attribute.Host, attribute.Port });
+
+            return new TelnetAddress(attribute.Host, attribute.Port);
         }
 
 
         public void Connect()
         {
-            if (_telnetAddress == null)
-            {
-                var stack = new StackTrace();                             
-                var caller = stack.GetFrame(1).GetMethod();
-                var attribute = caller.GetCustomAttribute<TelnetAttribute>() ?? throw new NotSupportedException($"Telnet attribute is missing in {caller.DeclaringType}.");    
-                
-                _logger.LogInformation("Using telnet {@options}", new { attribute.Host, attribute.Port });
-
-                Connect(new TelnetAddress(attribute.Host, attribute.Port));
-            }
+            Connect(_telnetAddress == null 
+                ? GetTelnetAddress(new StackTrace().GetFrame(1).GetMethod()) 
+                : _telnetAddress);
         }
 
 
         public void Connect(TelnetAddress address)
         {
             _logger.LogTrace("Creating telnet connection");
+
             Disconnect();
 
             _telnetAddress = address ?? throw new ArgumentNullException("TelnetAddress", "Telnet address was not provided.");
@@ -59,14 +68,10 @@ namespace Janda.CTF
 
         public void Disconnect()
         {
-            if (_tcpClient != null)
+            if (IsConnected)
             {
-                if (_tcpClient.Connected)
-                {
-                    _logger.LogTrace("Disconnecting from {host}:{port}", _telnetAddress.Host, _telnetAddress.Port);
-                    _tcpClient.Close();    
-                }
-                
+                _logger.LogTrace("Disconnecting from {host}:{port}", _telnetAddress.Host, _telnetAddress.Port);
+                _tcpClient.Close();
                 _tcpClient.Dispose();
                 _tcpClient = null;
             }
@@ -187,17 +192,17 @@ namespace Janda.CTF
         }
 
 
-        public void WriteLine(string command)
+        public void WriteLine(string value)
         {
-            Write(command + EOL_SEPARATOR);
+            Write(value + EOL_SEPARATOR);
         }
 
-        public void Write(string command)
+        public void Write(string value)
         {
-            var buffer = Encoding.ASCII.GetBytes(command);
+            var buffer = Encoding.ASCII.GetBytes(value);
 
             if (_logger.IsEnabled(LogLevel.Debug))
-                _logger.LogDebug("Sending {bytes} bytes: {@sb}", buffer.Length, command.Replace("\n", "\\n").Replace("\r", "\\r"));
+                _logger.LogDebug("Sending {bytes} bytes: {@sb}", buffer.Length, value.Replace("\n", "\\n").Replace("\r", "\\r"));
 
             _tcpClient.GetStream().Write(buffer, 0, buffer.Length);
         }
