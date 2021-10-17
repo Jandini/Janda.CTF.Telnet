@@ -1,7 +1,10 @@
-﻿namespace Janda.CTF
+﻿using System.Net.Sockets;
+
+namespace Janda.CTF
 {
     public interface ITelnetService
-    {        
+    {
+        void Connect(TcpClient client);
         void Connect(TelnetAddress address);
         void Connect(string host, int port);        
         

@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
@@ -14,12 +15,11 @@ namespace Janda.CTF
         private readonly ILogger<TelnetService> _logger;
         private TelnetAddress _telnetAddress;
         private TcpClient _tcpClient;
-        private int _timeout;
+        private readonly int _timeout;
+        public bool IsConnected => _tcpClient?.Connected ?? false;
 
         private const int DEFAULT_TIMEOUT = 100;
         private const string EOL_SEPARATOR = "\n";
-
-        public bool IsConnected => _tcpClient?.Connected ?? false;
 
         public TelnetService(ILogger<TelnetService> logger)
         {
@@ -59,6 +59,15 @@ namespace Janda.CTF
             _telnetAddress = address ?? throw new ArgumentNullException("TelnetAddress", "Telnet address was not provided.");
             _logger.LogDebug("Connecting to {host}:{port}", address.Host, address.Port);
             _tcpClient = new TcpClient(address.Host, address.Port);
+        }
+
+
+        public void Connect(TcpClient client)
+        {            
+            var ipep = client.Client.RemoteEndPoint as IPEndPoint;
+
+            _tcpClient = client;
+            _telnetAddress = new TelnetAddress(ipep.Address.ToString(), ipep.Port);
         }
 
         public void Connect(string host, int port)
