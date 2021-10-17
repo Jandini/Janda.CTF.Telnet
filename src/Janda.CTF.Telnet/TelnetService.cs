@@ -15,16 +15,14 @@ namespace Janda.CTF
         private readonly ILogger<TelnetService> _logger;
         private TelnetAddress _telnetAddress;
         private TcpClient _tcpClient;
-        private readonly int _timeout;
-        public bool IsConnected => _tcpClient?.Connected ?? false;
+        private int _delayMs = 100;
+        private string _eol = "\n";
 
-        private const int DEFAULT_TIMEOUT = 100;
-        private const string EOL_SEPARATOR = "\n";
+        public bool IsConnected => _tcpClient?.Connected ?? false;
 
         public TelnetService(ILogger<TelnetService> logger)
         {
             _logger = logger;
-            _timeout = DEFAULT_TIMEOUT;            
         }
 
 
@@ -42,15 +40,12 @@ namespace Janda.CTF
         }
 
 
-        public void Connect()
-        {
-            Connect(_telnetAddress == null 
-                ? GetTelnetAddress(new StackTrace().GetFrame(1).GetMethod()) 
+        public ITelnetService Connect() => Connect(_telnetAddress == null
+                ? GetTelnetAddress(new StackTrace().GetFrame(1).GetMethod())
                 : _telnetAddress);
-        }
 
 
-        public void Connect(TelnetAddress address)
+        public ITelnetService Connect(TelnetAddress address)
         {
             _logger.LogTrace("Creating telnet connection");
 
@@ -59,21 +54,22 @@ namespace Janda.CTF
             _telnetAddress = address ?? throw new ArgumentNullException("TelnetAddress", "Telnet address was not provided.");
             _logger.LogDebug("Connecting to {host}:{port}", address.Host, address.Port);
             _tcpClient = new TcpClient(address.Host, address.Port);
+
+            return this;
         }
 
 
-        public void Connect(TcpClient client)
+        public ITelnetService Connect(TcpClient client)
         {            
             var ipep = client.Client.RemoteEndPoint as IPEndPoint;
 
             _tcpClient = client;
             _telnetAddress = new TelnetAddress(ipep.Address.ToString(), ipep.Port);
+
+            return this;
         }
 
-        public void Connect(string host, int port)
-        {
-            Connect(new TelnetAddress(host, port));
-        }
+        public ITelnetService Connect(string host, int port) => Connect(new TelnetAddress(host, port));
 
         public void Disconnect()
         {
@@ -151,7 +147,7 @@ namespace Janda.CTF
 
         public string[] ReadLines()
         {
-            return Read().Split("\n");
+            return Read().Split(_eol);
         }
 
 
@@ -169,7 +165,7 @@ namespace Janda.CTF
                     _logger.LogDebug("Waiting for bytes");
 
                 Parse(builder);
-                Thread.Sleep(_timeout);
+                Thread.Sleep(_delayMs);
 
             } while (_tcpClient.Available > 0);
 
@@ -201,10 +197,7 @@ namespace Janda.CTF
         }
 
 
-        public void WriteLine(string value)
-        {
-            Write(value + EOL_SEPARATOR);
-        }
+
 
         public void Write(string value)
         {
@@ -221,6 +214,35 @@ namespace Janda.CTF
         {         
             _logger.LogDebug("Sending {bytes} bytes: {dump}", bytes.Length, bytes.ToHexDump());
             _tcpClient.GetStream().Write(bytes, 0, bytes.Length);
+        }
+
+        public void WriteLine(string value) => Write(value + _eol);
+        public void WriteLine(object value) => Write(value.ToString() + _eol);
+
+
+        public string Send(string value)
+        {
+            WriteLine(value);
+            return Read();
+        }
+
+        public string Send(object value)
+        {
+            WriteLine(value);
+            return Read();
+        }
+
+
+        public void SetDelay(int milliseconds)
+        {
+            _logger.LogTrace("Setting telnet client delay to {delay}ms", milliseconds);
+            _delayMs = milliseconds;
+        }
+
+        public void SetEol(string eol)
+        {
+            _logger.LogTrace("Setting telnet client EOL to {@delay}", Encoding.ASCII.GetBytes(eol));
+            _eol = eol;
         }
     }
 }
