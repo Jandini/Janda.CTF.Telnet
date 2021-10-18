@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/Jandini/Janda.CTF.Telnet/compare/0.1.0...0.2.0) (2021-10-18)
+
+
+### Features
+
+* Add connect from tcp client ([14ff628](https://github.com/Jandini/Janda.CTF.Telnet/commit/14ff628ced48fe21c4e945ba72f00bf768043fff))
+* Enchance telnet service ([ea0a5bf](https://github.com/Jandini/Janda.CTF.Telnet/commit/ea0a5bf286ae03b1add61522b4dad1bbeff66ee4))
+* Remove ctf extensions dependency ([c6994c9](https://github.com/Jandini/Janda.CTF.Telnet/commit/c6994c953a803ec9de1b4d130251e24d7a05233f))
+
+
+### Bug Fixes
+
+* Reconnect when connect agian ([5dd7ab7](https://github.com/Jandini/Janda.CTF.Telnet/commit/5dd7ab72535f98a194730c96efb82a879c5ac85f))
+
 ## 0.1.0 (2021-08-03)
 
 
