@@ -5,3 +5,4 @@ DOT_BUILD_SOLUTIONS=Janda.CTF.Telnet
 DOT_PUBLISH_RUNTIMES=win-x64
 # Add publish arguments e.g. -c Release -p:PublishSingleFile=true -p:PublishTrimmed=true
 DOT_PUBLISH_ARGUMENTS=-c Release
+DOT_NUGET_PROJECTS=Janda.CTF.Telnet
